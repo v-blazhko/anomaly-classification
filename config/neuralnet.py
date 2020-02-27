@@ -12,7 +12,7 @@ from keras import backend as K
 class NeuralNet:
     @staticmethod
     def build(width, height, depth, classes):
-        # initialize the model along with the input shape to be
+        # initialize the config along with the input shape to be
         # "channels last" and the channels dimension itself
         model = Sequential()
         inputShape = (height, width, depth)

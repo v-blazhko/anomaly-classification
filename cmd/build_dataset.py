@@ -1,4 +1,4 @@
-from pyimagesearch import config
+from config import config
 from imutils import paths
 import random
 import shutil
