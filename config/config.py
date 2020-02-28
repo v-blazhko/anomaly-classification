@@ -10,6 +10,8 @@ TEST_PATH = os.path.sep.join([BASE_PATH, "testing"])
 TRAIN_SPLIT = 0.8
 VAL_SPLIT = 0.1
 
-NUM_EPOCHS = 1
+NUM_EPOCHS = 30
 INIT_LR = 1e-1
 BATCH_SIZE = 32
+
+EPOCHS_TO_WAIT = 4

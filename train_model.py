@@ -6,6 +6,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from imutils import paths
+from keras.callbacks import EarlyStopping
 from keras.optimizers import Adagrad
 from keras.preprocessing.image import ImageDataGenerator
 from keras.utils import np_utils
@@ -64,6 +65,8 @@ trainAug = ImageDataGenerator(
 # initialize the validation (and testing) data augmentation object
 valAug = ImageDataGenerator(rescale=1 / 255.0)
 
+early_stopping_callback = EarlyStopping(monitor='val_loss', patience=config.EPOCHS_TO_WAIT)
+
 # initialize the training generator
 trainGen = trainAug.flow_from_directory(
     config.TRAIN_PATH,
@@ -98,7 +101,9 @@ H = model.fit_generator(
     validation_data=valGen,
     validation_steps=totalVal // config.BATCH_SIZE,
     class_weight=classWeight,
-    epochs=config.NUM_EPOCHS)
+    epochs=config.NUM_EPOCHS,
+    callbacks=[early_stopping_callback]
+)
 
 # reset the testing generator and then use our trained config to
 # make predictions on the data
@@ -142,4 +147,9 @@ plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend(loc="best")
 plt.savefig(
-    args["conv"] + "_" + datetime.datetime.now().strftime("%d-%m-%Y_%H-%M-%S") + "_" + args["plot"])
+    args["conv"] +
+    "_" +
+    datetime.datetime.now().strftime("%d-%m-%Y_%H-%M-%S") +
+    "_" +
+    args["plot"]
+)
