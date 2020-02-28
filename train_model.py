@@ -36,7 +36,7 @@ plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=T
 
 # determine the total number of image paths in training, validation,
 # and testing directories
-trainPaths = list(paths.list_images(config.TRAIN_PATH))[:500]
+trainPaths = list(paths.list_images(config.TRAIN_PATH))[:5000]
 totalTrain = len(trainPaths)
 totalVal = len(list(paths.list_images(config.VAL_PATH)))
 totalTest = len(list(paths.list_images(config.TEST_PATH)))
@@ -141,4 +141,5 @@ plt.title("Training Loss and Accuracy on Dataset")
 plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend(loc="best")
-plt.savefig(datetime.datetime.now().strftime("%d-%m-%Y_%H-%M-%S") + args["conv"] + "_" + args["plot"])
+plt.savefig(
+    args["conv"] + "_" + datetime.datetime.now().strftime("%d-%m-%Y_%H-%M-%S") + "_" + args["plot"])
